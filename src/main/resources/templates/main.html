@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Scheduler configuration</title>
+    <style>
+        .table1  {
+            border-collapse: collapse;
+            border: 2px solid black;
+        }
+
+        .table1 th {
+            border: 2px solid black;
+            padding: 5px;
+        }
+
+        .table1 td {
+            border: 2px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!-- Setting initial values-->
+    <form th:action="@{/add}" method="post" >
+        <table  width="100%" cellspacing="0" cellpadding="8">
+            <tr>
+                <td align="right" width="380"><b>Введите абсолютный путь до исполняемого файла</b></td>
+                <td> <input type="text" name="pathToFile" placeholder="Абсолютный путь"> </td>
+            </tr>
+            <tr>
+                <td align="right"><b>Задайте время запуска исполняемого файла</b></td>
+                <td><input type="text" name="launchTime" placeholder="Время запуска"></td>
+            </tr>
+            <tr>
+                <td align="right"><b>Задайте дни для запуска исполняемого файла</b></td>
+                <td><input type="text" name="launchDay" placeholder="Дни запуска"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                        <button type="submit"><b>Добавить в расписание</b></button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br>
+<!-- Showing table-->
+    <table  class="table1" width="580">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Path to file</th>
+            <th>Start time</th>
+            <th>Start day</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="element : ${scriptList}">
+            <td th:text="${element.id}">id</td>
+            <td th:text="${element.pathToFile}">Path to file</td>
+            <td th:text="${element.launchTime}">Launch time</td>
+            <td th:text="${element.launchDay}">Launch day</td>
+            <td>
+                <form th:action="@{/delete}" method="get" th:object="${element}">
+                    <a th:href="@{/delete(id=${element.id})}" class="btn btn-danger">Delete</a>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+<!--    Create service with nssm.exe-->
+    <form th:action="@{/create}" method="post">
+        <p>
+            <button type="submit" name="createService"><b>Сконфигурировать планировщик</b></button>
+        </p>
+    </form>
+    <br>
+<!-- Button logout-->
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+    <hr>
+<!-- Notes-->
+    <small>
+        <p> Время запуска указывается в 24 часовом формате с учетом минут. Пример: "12:00", "23:15"</p>
+        <p> Дни для запуска указываются в формате: "?" - запуска скрипта ежедневно,
+            "SUNDAY/MONDAY/TUESDAY/WEDNESDAY/THURSDAY/FRIDAY/SATURDAY" - запуск исполняемого файла в указанный день,</p>
+            так же в случае необходимости запуска исполняемого файла, для примера только в Понедельник и Пятницу,
+            допускается указывать дни запуска через запятую, например - "MONDAY,FRIDAY"
+    </small>
+</body>
+</html>

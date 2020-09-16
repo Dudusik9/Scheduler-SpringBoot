@@ -1,0 +1,19 @@
+####JAR####
+Manifest-Version: 1.0
+Spring-Boot-Classpath-Index: BOOT-INF/classpath.idx
+Implementation-Title: serving-web-content
+Implementation-Version: 0.0.1-SNAPSHOT
+Start-Class: scheduler.Application
+Spring-Boot-Classes: BOOT-INF/classes/
+Spring-Boot-Lib: BOOT-INF/lib/
+Build-Jdk-Spec: 1.8
+Spring-Boot-Version: 2.3.2.RELEASE
+Created-By: Maven Jar Plugin 3.2.0
+Main-Class: org.springframework.boot.loader.JarLauncher
+
+####JAR WITH DEPENDENCIES####
+Manifest-Version: 1.0
+Built-By: Dmitry
+Created-By: Apache Maven 3.6.3
+Build-Jdk: 1.8.0_231
+Main-Class: scheduler.Application
